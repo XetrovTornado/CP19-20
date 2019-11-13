@@ -16,7 +16,7 @@ for add_sudo in $@; do
 done;
 
 echo "Removing unwanted sudoers…"
-for sudo_user in $(grep "^sudo:" /etc/group | cut -d: -f4 | tr ',' ' '); do
+for sudo_user in $(grep "^sudo:" /etc/group | cut -d: -f4 | tr "," " "); do
     keep_current_user=0
     for keep_user in $@; do
         if [[ $sudo_user == $keep_user ]]; then
@@ -35,10 +35,10 @@ passwdch.sh
 
 ```bash
 echo '
-for username in $(grep -v '\:\!\:' /etc/shadow | grep -v '\:\*\:' | cut -d: -f1); do
+for username in $(grep -v "\:\!\:" /etc/shadow | grep -v "\:\*\:" | cut -d: -f1); do
   if [[ $username != "cyberpatriot" ]]; then
     echo "$username:FortniteMinecraft42!" | chpasswd;
-    echo "Changed $username's password";
+    echo "Changed password for $username";
   fi;
 done
 ' >> passwdch.sh; chmod a+x passwdch.sh;
