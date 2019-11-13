@@ -8,7 +8,7 @@ Remember: use chmod a+x <file-name> before running so you have the permissions r
 limitsudo.sh
 
 ```bash
-#!/bin/bash
+echo '
 
 echo "Adding wanted sudoers…"
 for add_sudo in $@; do
@@ -28,12 +28,13 @@ for sudo_user in $(grep "^sudo:" /etc/group | cut -d: -f4 | tr ',' ' '); do
         gpasswd -d $sudo_user sudo && echo "Removed $sudo_user from sudo group"
     fi
 done
+' >> limitsudo.sh; chmod a+x limitsudo.sh;
 ```
 
 passwdch.sh
 
 ```bash
-#!/bin/bash
+echo '
 # Changes all user's passwords that already have a password
 # Requires root login
 for username in $(grep -v '\:\!\:' /etc/shadow | grep -v '\:\*\:' | cut -d: -f1); do
@@ -42,4 +43,5 @@ for username in $(grep -v '\:\!\:' /etc/shadow | grep -v '\:\*\:' | cut -d: -f1)
     echo "Changed $username's password";
   fi;
 done
+' >> passwdch.sh; chmod a+x passwdch.sh;
 ```
