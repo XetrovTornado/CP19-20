@@ -13,6 +13,9 @@ locate "**/*.mp3"
 Check groups
 
 ```bash
+# Option 1:
+getent group groupname
+# Option 2:
 cat /etc/groups | grep "groupname"
 ```
 
