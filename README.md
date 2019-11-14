@@ -1,9 +1,44 @@
 # CyberPatriots19-20
 Scripts for McK. HS CP19-20
 
-# Checklist
+# Forensic Questions
 
-Remember: use chmod a+x <file-name> before running so you have the permissions required
+Find files
+
+```bash
+updatedb
+locate "**/*.mp3"
+```
+
+Check groups
+
+```bash
+cat /etc/groups | grep "groupname"
+```
+
+Check users
+```bash
+sudo cut -d: -f1 /etc/passwd | grep -v -E '(root|daemon|bin|sys|sync|games|man|lp|mail|news|uucp|proxy|www-data|backup|list|irc|gnats|nobody|libuuid|syslog|messagebus|colord|lightdm|whoopsie|avahi-autoipd|avahi|usbmux|kernoops|pulse|rtkit|speech-dispatcher|dispatcher|hplip|saned|ubuntu)'
+```
+
+Find programs
+```bash
+for app in /usr/share/applications/*.desktop ~/.local/share/applications/*.desktop; do app="${app##/*/}"; echo "${app::-8}"; done
+```
+
+# Lockdown Checklist
+
+### GUI
+
+* Enable automatic updates
+* Update Firefox 🔥🦊 and disable pop ups
+
+### Terminal
+
+limitusers.sh
+
+```bash
+```
 
 limitsudo.sh
 
@@ -42,4 +77,22 @@ for username in $(grep -v "\:\!\:" /etc/shadow | grep -v "\:\*\:" | cut -d: -f1)
   fi;
 done
 ' >> passwdch.sh; chmod a+x passwdch.sh;
+```
+
+Disable guest access
+```bash
+sudo sh -c 'printf "[SeatDefaults]\nallow-guest=false\n" > /etc/lightdm/lightdm.conf.d/50-no-guest.conf'
+```
+
+Prevent root login with SSH
+```bash
+```
+
+Enable firewall
+```bash
+sudo apt install ufw
+sudo ufw default allow outgoing
+sudo ufw default deny incoming
+sudo ufw reload
+sudo ufw enable
 ```
