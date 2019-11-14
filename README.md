@@ -6,7 +6,7 @@ Scripts for McK. HS CP19-20
 Find files
 
 ```bash
-updatedb
+sudo updatedb
 locate "**/*.mp3"
 ```
 
@@ -34,6 +34,11 @@ for app in /usr/share/applications/*.desktop ~/.local/share/applications/*.deskt
 * Update Firefox 🔥🦊 and disable pop ups
 
 ### Terminal
+
+```bash
+sudo mkdir /cp
+sudo chmod a+rwx /cp
+```
 
 limitusers.sh
 
@@ -63,7 +68,7 @@ for sudo_user in $(grep "^sudo:" /etc/group | cut -d: -f4 | tr "," " "); do
         gpasswd -d $sudo_user sudo && echo "Removed $sudo_user from sudo group"
     fi
 done
-' >> limitsudo.sh; chmod a+x limitsudo.sh;
+' >> /cp/limitsudo.sh; chmod a+x /cp/limitsudo.sh;
 ```
 
 passwdch.sh
@@ -76,7 +81,7 @@ for username in $(grep -v "\:\!\:" /etc/shadow | grep -v "\:\*\:" | cut -d: -f1)
     echo "Changed password for $username";
   fi;
 done
-' >> passwdch.sh; chmod a+x passwdch.sh;
+' >> /cp/passwdch.sh; chmod a+x /cp/passwdch.sh;
 ```
 
 Disable guest access
