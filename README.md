@@ -90,6 +90,7 @@ sudo sh -c 'printf "[SeatDefaults]\nallow-guest=false\n" > /etc/lightdm/lightdm.
 
 Prevent root login with SSH
 ```bash
+sudo sed -i 's/PermitRootLogin .*/PermitRootLogin no/' /etc/ssh/sshd_config
 ```
 
 Enable firewall
