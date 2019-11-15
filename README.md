@@ -38,11 +38,6 @@ for app in /usr/share/applications/*.desktop ~/.local/share/applications/*.deskt
 
 ### Terminal
 
-```bash
-sudo mkdir /cp
-sudo chmod a+rwx /cp
-```
-
 limitusers.sh
 
 ```bash
@@ -104,3 +99,18 @@ sudo ufw default deny incoming
 sudo ufw reload
 sudo ufw enable
 ```
+
+Set password policies
+```bash
+
+```
+
+#### Additional Checks
+
+Services
+```bash
+service --status-all
+sudo netstat -ntulp
+```
+
+more stuff at sumwonyuno.github.io/cp-lockdown
