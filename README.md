@@ -112,6 +112,10 @@ sudo sed -ri 's/PASS_MAX_DAYS\s*[0-9]*/PASS_MIN_DAYS 10/' /etc/login.defs
 sudo sed -ri 's/PASS_MAX_DAYS\s*[0-9]*/PASS_WARN_AGE 7/' /etc/login.defs
 sudo echo "auth required pam_tally2.so deny=5 onerr=fail unlock_time=30" >> /etc/pam.d/common-auth
 ```
+Remove hacking tools
+```bash
+sudo apt remove nmap zenmap john ophcrack wireshark
+```
 
 #### Additional Checks
 
