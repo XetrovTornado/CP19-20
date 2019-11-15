@@ -126,4 +126,4 @@ Cron Jobs
 ls -a "/etc/cron*"
 ```
 
-more stuff at [sumwonyuno.github.io/cp-lockdown](sumwonyuno.github.io/cp-lockdown)
+more stuff at [sumwonyuno.github.io/cp-lockdown](https://sumwonyuno.github.io/cp-lockdown)
