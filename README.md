@@ -38,10 +38,11 @@ for app in /usr/share/applications/*.desktop ~/.local/share/applications/*.deskt
 
 ### Terminal
 
-limitusers.sh
-
 ```bash
+sudo mkdir /cp
+sudo chmod a+rwx /cp
 ```
+Run scripts with `sudo bash /cp/<script> <parameters>`
 
 limitsudo.sh
 
@@ -57,16 +58,16 @@ echo "Removing unwanted sudoers…"
 for sudo_user in $(grep "^sudo:" /etc/group | cut -d: -f4 | tr "," " "); do
     keep_current_user=0
     for keep_user in $@; do
-        if [[ $sudo_user == $keep_user ]]; then
+        if [ "$sudo_user" == "$keep_user" ]; then
             keep_current_user=1
             break
         fi
     done
-    if [[ $keep_current_user == 0 ]]; then
+    if [ "$keep_current_user" == 0 ]; then
         gpasswd -d $sudo_user sudo && echo "Removed $sudo_user from sudo group"
     fi
 done
-' >> /cp/limitsudo.sh; chmod a+x /cp/limitsudo.sh;
+' > /cp/limitsudo.sh; chmod a+x /cp/limitsudo.sh;
 ```
 
 passwdch.sh
@@ -74,12 +75,12 @@ passwdch.sh
 ```bash
 echo '
 for username in $(grep -v "\:\!\:" /etc/shadow | grep -v "\:\*\:" | cut -d: -f1); do
-  if [[ $username != "cyberpatriot" ]]; then
+  if [ "$username" != "cyberpatriot" ]; then
     echo "$username:FortniteMinecraft42!" | chpasswd;
     echo "Changed password for $username";
   fi;
 done
-' >> /cp/passwdch.sh; chmod a+x /cp/passwdch.sh;
+' > /cp/passwdch.sh; chmod a+x /cp/passwdch.sh;
 ```
 
 Disable guest access
@@ -93,7 +94,7 @@ Prevent root login with SSH
 
 Enable firewall
 ```bash
-sudo apt install ufw
+sudo apt install -y ufw
 sudo ufw default allow outgoing
 sudo ufw default deny incoming
 sudo ufw reload
