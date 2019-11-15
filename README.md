@@ -110,6 +110,7 @@ sudo sed -ri 's/^(password.*pam_unix\.so.*)$/\1 remember=5 minlen=8/' /etc/pam.d
 sudo sed -ri 's/PASS_MAX_DAYS\s*[0-9]*/PASS_MAX_DAYS 90/' /etc/login.defs
 sudo sed -ri 's/PASS_MAX_DAYS\s*[0-9]*/PASS_MIN_DAYS 10/' /etc/login.defs
 sudo sed -ri 's/PASS_MAX_DAYS\s*[0-9]*/PASS_WARN_AGE 7/' /etc/login.defs
+sudo echo "auth required pam_tally2.so deny=5 onerr=fail unlock_time=30" >> /etc/pam.d/common-auth
 ```
 
 #### Additional Checks
@@ -118,6 +119,11 @@ Services
 ```bash
 service --status-all
 sudo netstat -ntulp
+```
+
+Cron Jobs
+```bash
+ls -a "/etc/cron*"
 ```
 
 more stuff at sumwonyuno.github.io/cp-lockdown
