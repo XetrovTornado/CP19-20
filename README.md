@@ -130,4 +130,17 @@ Cron Jobs
 ls -a "/etc/cron*"
 ```
 
+#### Troubleshooting 
+
+Could not lock /var/lib/dpkg/lock-frontend
+```bash
+sudo killall apt apt-get
+
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock*
+sudo dpkg --configure -a
+sudo apt update
+```
+
 more stuff at [sumwonyuno.github.io/cp-lockdown](https://sumwonyuno.github.io/cp-lockdown)
