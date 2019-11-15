@@ -85,7 +85,7 @@ done
 
 Disable guest access
 ```bash
-sudo sh -c 'printf "[SeatDefaults]\nallow-guest=false\n" > /etc/lightdm/lightdm.conf.d/50-no-guest.conf'
+sudo sh -c 'printf "[SeatDefaults]\nallow-guest=false\n" > /etc/lightdm/lightdm.conf'
 ```
 
 Prevent root login with SSH
