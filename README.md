@@ -42,6 +42,13 @@ for app in /usr/share/applications/*.desktop ~/.local/share/applications/*.deskt
 sudo mkdir /cp
 sudo chmod a+rwx /cp
 ```
+Programs
+```bash
+sudo apt remove nmap zenmap wireshark john ophcrack
+
+sudo apt install -y ufw libpam-cracklib
+```
+
 Run scripts with `sudo bash /cp/<script> <parameters>`
 
 limitsudo.sh
@@ -95,7 +102,6 @@ sudo sed -i 's/PermitRootLogin .*/PermitRootLogin no/' /etc/ssh/sshd_config
 
 Enable firewall
 ```bash
-sudo apt install -y ufw
 sudo ufw default allow outgoing
 sudo ufw default deny incoming
 sudo ufw reload
@@ -104,17 +110,12 @@ sudo ufw enable
 
 Set password policies
 ```bash
-sudo apt install -y libpam-cracklib
 sudo sed -ri 's/^(password\s*requisite\s*pam_cracklib\.so.*)$/\1 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1/' /etc/pam.d/common-password
 sudo sed -ri 's/^(password.*pam_unix\.so.*)$/\1 remember=5 minlen=8/' /etc/pam.d/common-password
 sudo sed -ri 's/PASS_MAX_DAYS\s*[0-9]*/PASS_MAX_DAYS 90/' /etc/login.defs
 sudo sed -ri 's/PASS_MIN_DAYS\s*[0-9]*/PASS_MIN_DAYS 10/' /etc/login.defs
 sudo sed -ri 's/PASS_WARN_AGE\s*[0-9]*/PASS_WARN_AGE 7/' /etc/login.defs
 sudo echo "auth required pam_tally2.so deny=5 onerr=fail unlock_time=30" >> /etc/pam.d/common-auth
-```
-Remove hacking tools
-```bash
-sudo apt remove nmap zenmap john ophcrack wireshark
 ```
 
 #### Additional Checks
