@@ -142,17 +142,56 @@ sudo sed -ri 's/PASS_WARN_AGE\s*[0-9]*/PASS_WARN_AGE 7/' /etc/login.defs
 sudo echo "auth required pam_tally2.so deny=5 onerr=fail unlock_time=30" >> /etc/pam.d/common-auth
 ```
 
+Secure permissions
+```bash
+sudo chmod u=rw,go= /etc/shadow
+sudo chmod u=rw,go= /etc/sudoers
+sudo chmod u=rw,go=r /etc/passwd
+
+sudo passwd -l root
+```
+
 #### Additional Checks
 
-Services
+**Services**
 ```bash
+ps
 service --status-all
 sudo netstat -ntulp
 ```
+Ubuntu 16+: `systemctl disable <service>`
+Ubuntu 14 or earlier: `update-rc.d -f <service> remove`
 
-Cron Jobs
+**Cron Jobs**
 ```bash
 ls -a "/etc/cron*"
+```
+Default cron jobs:
+```
+/etc/crontab
+
+/etc/cron.d:
+anacron  john  .placeholder  popularity-contest
+
+/etc/cron.daily:
+0anacron  apport      bsdmainutils      dpkg       man-db   passwd        popularity-contest      upstart
+apache2   apt-compat  cracklib-runtime  logrotate  mlocate  .placeholder  update-notifier-common
+
+/etc/cron.hourly:
+.placeholder
+
+/etc/cron.monthly:
+0anacron  .placeholder
+
+/etc/cron.weekly:
+0anacron  fstrim  man-db  .placeholder  update-notifier-common
+```
+
+# Updates
+
+```bash
+sudo apt update
+sudo apt upgrade
 ```
 
 #### Troubleshooting 
