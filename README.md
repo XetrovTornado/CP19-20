@@ -51,7 +51,7 @@ sudo apt install -y ufw libpam-cracklib
 
 Run scripts with `sudo bash /cp/<script> <parameters>`
 
-limitsudo.sh
+limitsudo.sh (unnecessary if using next script)
 
 ```bash
 echo '
@@ -75,6 +75,30 @@ for sudo_user in $(grep "^sudo:" /etc/group | cut -d: -f4 | tr "," " "); do
     fi
 done
 ' > /cp/limitsudo.sh; chmod a+x /cp/limitsudo.sh;
+```
+
+Users
+```bash
+echo '
+for username in $(cut -d: -f1 /etc/passwd | grep -v -E "root|daemon|bin|sys|sync|games|man|lp|mail|news|uucp|proxy|www-data|backup|list|irc|gnats|nobody|libuuid|syslog|messagebus|colord|lightdm|whoopsie|avahi-autoipd|avahi|usbmux|kernoops|pulse|rtkit|speech-dispatcher|dispatcher|hplip|saned|ubuntu|_apt|uuidd|dnsmasq|geoclue|gnome-initial-setup|gdm|vboxadd|sshd|mysql)"); do
+    echo "Is $username a permitted user?"
+    select keepuser in "Yes" "No"; do
+        case $keepuser in
+            Yes ) 
+                echo "Is $username an administrator?"
+                select makeadmin in "Yes" "No"; do
+                    case $makeadmin in 
+                        Yes ) gpasswd -a $username sudo; break;;
+                        No ) gpasswd -d $username sudo; break;;
+                    esac
+                done
+                echo "$username:FortniteMinecraft42!" | chpasswd; break;;
+            No ) userdel $username && echo "Deleted $username"; break;;
+        esac
+    done
+done
+' > /cp/userchecks.sh; chmod a+x /cp/userchecks.sh; sudo bash /cp/userchecks.sh;
+                
 ```
 
 passwdch.sh
