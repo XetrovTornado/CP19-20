@@ -46,7 +46,7 @@ Programs
 ```bash
 sudo apt remove nmap zenmap wireshark john ophcrack
 
-sudo apt install -y ufw libpam-cracklib
+sudo apt install -y ufw libpam-cracklib git
 ```
 
 Run scripts with `sudo bash /cp/<script> <parameters>`
@@ -185,6 +185,12 @@ apache2   apt-compat  cracklib-runtime  logrotate  mlocate  .placeholder  update
 
 /etc/cron.weekly:
 0anacron  fstrim  man-db  .placeholder  update-notifier-common
+```
+Compare exact cron jobs:
+```bash
+mkdir /cp/CurrentCron
+sudo cp /etc/cron* /cp/CurrentCron
+sudo diff -r /cp/CurrentCron /cp/CronCompare
 ```
 
 # Updates
