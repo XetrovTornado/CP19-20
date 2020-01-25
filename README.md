@@ -1,6 +1,8 @@
 # CyberPatriots19-20
 Scripts for McK. HS CP19-20
 
+Note: to copy and paste code to/from a terminal, use `Ctrl+Shift+C` and `Ctrl+Shift+V`
+
 # Forensic Questions
 
 Find files
