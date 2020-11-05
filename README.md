@@ -40,44 +40,27 @@ for app in /usr/share/applications/*.desktop ~/.local/share/applications/*.deskt
 
 ### Terminal
 
+Log in to sudo
+```
+sudo echo "Logged in as sudo"
+```
+
+Run these to create the directory /cp (this is where all scripts will go)
 ```bash
 sudo mkdir /cp
 sudo chmod a+rwx /cp
 ```
-Programs
+
+Program install and remove
 ```bash
-sudo apt remove nmap zenmap wireshark john ophcrack
+sudo apt remove -y nmap zenmap wireshark john ophcrack
 
 sudo apt install -y ufw libpam-cracklib git
 ```
 
-Run scripts with `sudo bash /cp/<script> <parameters>`
-
-limitsudo.sh (unnecessary if using next script)
-
-```bash
-echo '
-
-echo "Adding wanted sudoers…"
-for add_sudo in $@; do
-    gpasswd -a $add_sudo sudo && echo "Added $add_sudo to sudo group"
-done;
-
-echo "Removing unwanted sudoers…"
-for sudo_user in $(grep "^sudo:" /etc/group | cut -d: -f4 | tr "," " "); do
-    keep_current_user=0
-    for keep_user in $@; do
-        if [ "$sudo_user" == "$keep_user" ]; then
-            keep_current_user=1
-            break
-        fi
-    done
-    if [ "$keep_current_user" == 0 ]; then
-        gpasswd -d $sudo_user sudo && echo "Removed $sudo_user from sudo group"
-    fi
-done
-' > /cp/limitsudo.sh; chmod a+x /cp/limitsudo.sh;
-```
+~~Run scripts with `sudo bash /cp/<script> <parameters>`~~
+Copy-pasting the Users code will run the script for you
+Tip: copy the user list in the readme and paste it into an online sorting app (such as https://pinetools.com/sort-list)
 
 Users
 ```bash
@@ -101,19 +84,6 @@ for username in $(cut -d: -f1 /etc/passwd | grep -v -E "root|daemon|bin|sys|sync
 done
 ' > /cp/userchecks.sh; chmod a+x /cp/userchecks.sh; sudo bash /cp/userchecks.sh;
                 
-```
-
-passwdch.sh
-
-```bash
-echo '
-for username in $(grep -v "\:\!\:" /etc/shadow | grep -v "\:\*\:" | cut -d: -f1); do
-  if [ "$username" != "cyberpatriot" ]; then
-    echo "$username:FortniteMinecraft42!" | chpasswd;
-    echo "Changed password for $username";
-  fi;
-done
-' > /cp/passwdch.sh; chmod a+x /cp/passwdch.sh;
 ```
 
 Disable guest access
@@ -216,3 +186,17 @@ sudo apt update
 ```
 
 more stuff at [sumwonyuno.github.io/cp-lockdown](https://sumwonyuno.github.io/cp-lockdown)
+
+
+passwdch.sh
+
+```bash
+echo '
+for username in $(grep -v "\:\!\:" /etc/shadow | grep -v "\:\*\:" | cut -d: -f1); do
+  if [ "$username" != "cyberpatriot" ]; then
+    echo "$username:FortniteMinecraft42!" | chpasswd;
+    echo "Changed password for $username";
+  fi;
+done
+' > /cp/passwdch.sh; chmod a+x /cp/passwdch.sh;
+```
