@@ -1,4 +1,5 @@
 # CyberPatriots19-20
+### This repository is out of date. For the most up-to-date scripts, check https://github.com/XetrovTornado/CPXIII
 Scripts for McK. HS CP19-20
 
 Note: to copy and paste code to/from a terminal, use `Ctrl+Shift+C` and `Ctrl+Shift+V`
